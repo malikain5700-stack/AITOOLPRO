@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Tag Generator - Free SEO Tool</title>
+    <meta name="description" content="Generate SEO-optimized meta tags for your website. Free online meta tag generator tool.">
+    <meta name="keywords" content="meta tag generator, seo meta tags, meta description, meta keywords">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-tags text-primary me-3"></i>
+                        Meta Tag Generator
+                    </h1>
+                    <p class="lead text-muted">Generate SEO-optimized meta tags for your website. Improve your search engine rankings with proper meta tags.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-search display-1 text-primary opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Generate Meta Tags</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="pageTitle" class="form-label">Page Title *</label>
+                                <input type="text" class="form-control" id="pageTitle" placeholder="Your Page Title" maxlength="60">
+                                <div class="form-text">Recommended: 50-60 characters</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="pageUrl" class="form-label">Page URL</label>
+                                <input type="url" class="form-control" id="pageUrl" placeholder="https://example.com/page">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="metaDescription" class="form-label">Meta Description *</label>
+                            <textarea class="form-control" id="metaDescription" rows="3" placeholder="Describe your page content..." maxlength="160"></textarea>
+                            <div class="form-text">Recommended: 150-160 characters</div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="metaKeywords" class="form-label">Keywords</label>
+                                <input type="text" class="form-control" id="metaKeywords" placeholder="keyword1, keyword2, keyword3">
+                                <div class="form-text">Separate with commas</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="author" class="form-label">Author</label>
+                                <input type="text" class="form-control" id="author" placeholder="Your Name">
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="language" class="form-label">Language</label>
+                                <select class="form-select" id="language">
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">German</option>
+                                    <option value="it">Italian</option>
+                                    <option value="pt">Portuguese</option>
+                                    <option value="ru">Russian</option>
+                                    <option value="ja">Japanese</option>
+                                    <option value="ko">Korean</option>
+                                    <option value="zh">Chinese</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="robots" class="form-label">Robots</label>
+                                <select class="form-select" id="robots">
+                                    <option value="index, follow">Index, Follow</option>
+                                    <option value="noindex, nofollow">No Index, No Follow</option>
+                                    <option value="index, nofollow">Index, No Follow</option>
+                                    <option value="noindex, follow">No Index, Follow</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="viewport" class="form-label">Viewport</label>
+                                <select class="form-select" id="viewport">
+                                    <option value="width=device-width, initial-scale=1.0">Responsive (Recommended)</option>
+                                    <option value="width=1024">Fixed Width (1024px)</option>
+                                    <option value="width=768">Fixed Width (768px)</option>
+                                    <option value="width=device-width">Device Width Only</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="charset" class="form-label">Character Set</label>
+                                <select class="form-select" id="charset">
+                                    <option value="UTF-8">UTF-8 (Recommended)</option>
+                                    <option value="ISO-8859-1">ISO-8859-1</option>
+                                    <option value="UTF-16">UTF-16</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5>Social Media Tags</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="ogTitle" class="form-label">Open Graph Title</label>
+                                    <input type="text" class="form-control" id="ogTitle" placeholder="Social Media Title">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ogImage" class="form-label">Open Graph Image URL</label>
+                                    <input type="url" class="form-control" id="ogImage" placeholder="https://example.com/image.jpg">
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="ogDescription" class="form-label">Open Graph Description</label>
+                                    <textarea class="form-control" id="ogDescription" rows="2" placeholder="Social media description"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="twitterCard" class="form-label">Twitter Card Type</label>
+                                    <select class="form-select" id="twitterCard">
+                                        <option value="summary">Summary</option>
+                                        <option value="summary_large_image">Summary Large Image</option>
+                                        <option value="app">App</option>
+                                        <option value="player">Player</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-primary btn-lg" id="generateBtn" onclick="generateMetaTags()">
+                                <i class="fas fa-tags me-2"></i>Generate Meta Tags
+                            </button>
+                            <button class="btn btn-secondary ms-2" onclick="resetGenerator()">
+                                <i class="fas fa-refresh me-2"></i>Reset
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4" id="metaResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Meta Tags Generated!</h5>
+                                <p class="mb-0">Your SEO-optimized meta tags are ready to use.</p>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <label for="metaOutput" class="form-label">Generated Meta Tags</label>
+                                <textarea class="form-control" id="metaOutput" rows="15" readonly></textarea>
+                                <div class="mt-2">
+                                    <button class="btn btn-primary" onclick="copyMetaTags()">
+                                        <i class="fas fa-copy me-2"></i>Copy Meta Tags
+                                    </button>
+                                    <button class="btn btn-outline-primary ms-2" onclick="downloadMetaTags()">
+                                        <i class="fas fa-download me-2"></i>Download as HTML
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>SEO-optimized meta tags</li>
+                        <li>Social media integration</li>
+                        <li>Character count validation</li>
+                        <li>Multiple language support</li>
+                        <li>Mobile-friendly viewport</li>
+                        <li>Copy/download options</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>SEO Tips</h6>
+                    <ul class="small text-muted">
+                        <li>Keep titles under 60 characters</li>
+                        <li>Write compelling descriptions</li>
+                        <li>Use relevant keywords</li>
+                        <li>Include social media tags</li>
+                        <li>Test with SEO tools</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        // Initialize character counters
+        document.addEventListener('DOMContentLoaded', function() {
+            const titleInput = document.getElementById('pageTitle');
+            const descriptionInput = document.getElementById('metaDescription');
+            
+            titleInput.addEventListener('input', function() {
+                const length = this.value.length;
+                const feedback = this.nextElementSibling;
+                if (length > 60) {
+                    feedback.textContent = `Warning: ${length} characters (recommended: 50-60)`;
+                    feedback.className = 'form-text text-warning';
+                } else {
+                    feedback.textContent = `Good: ${length} characters (recommended: 50-60)`;
+                    feedback.className = 'form-text text-success';
+                }
+            });
+            
+            descriptionInput.addEventListener('input', function() {
+                const length = this.value.length;
+                const feedback = this.nextElementSibling;
+                if (length > 160) {
+                    feedback.textContent = `Warning: ${length} characters (recommended: 150-160)`;
+                    feedback.className = 'form-text text-warning';
+                } else {
+                    feedback.textContent = `Good: ${length} characters (recommended: 150-160)`;
+                    feedback.className = 'form-text text-success';
+                }
+            });
+        });
+
+        function generateMetaTags() {
+            const pageTitle = document.getElementById('pageTitle').value;
+            const pageUrl = document.getElementById('pageUrl').value;
+            const metaDescription = document.getElementById('metaDescription').value;
+            const metaKeywords = document.getElementById('metaKeywords').value;
+            const author = document.getElementById('author').value;
+            const language = document.getElementById('language').value;
+            const robots = document.getElementById('robots').value;
+            const viewport = document.getElementById('viewport').value;
+            const charset = document.getElementById('charset').value;
+            const ogTitle = document.getElementById('ogTitle').value;
+            const ogImage = document.getElementById('ogImage').value;
+            const ogDescription = document.getElementById('ogDescription').value;
+            const twitterCard = document.getElementById('twitterCard').value;
+            
+            if (!pageTitle || !metaDescription) {
+                showAlert('Please fill in the required fields (Title and Description).', 'warning');
+                return;
+            }
+            
+            let metaTags = `<!DOCTYPE html>
+<html lang="${language}">
+<head>
+    <meta charset="${charset}">
+    <meta name="viewport" content="${viewport}">
+    <title>${pageTitle}</title>
+    <meta name="description" content="${metaDescription}">`;
+    
+            if (metaKeywords) {
+                metaTags += `
+    <meta name="keywords" content="${metaKeywords}">`;
+            }
+            
+            if (author) {
+                metaTags += `
+    <meta name="author" content="${author}">`;
+            }
+            
+            metaTags += `
+    <meta name="robots" content="${robots}">`;
+            
+            if (pageUrl) {
+                metaTags += `
+    <link rel="canonical" href="${pageUrl}">`;
+            }
+            
+            // Open Graph tags
+            metaTags += `
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="${ogTitle || pageTitle}">
+    <meta property="og:description" content="${ogDescription || metaDescription}">`;
+            
+            if (pageUrl) {
+                metaTags += `
+    <meta property="og:url" content="${pageUrl}">`;
+            }
+            
+            if (ogImage) {
+                metaTags += `
+    <meta property="og:image" content="${ogImage}">`;
+            }
+            
+            // Twitter Card tags
+            metaTags += `
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="${twitterCard}">
+    <meta property="twitter:title" content="${ogTitle || pageTitle}">
+    <meta property="twitter:description" content="${ogDescription || metaDescription}">`;
+            
+            if (ogImage) {
+                metaTags += `
+    <meta property="twitter:image" content="${ogImage}">`;
+            }
+            
+            metaTags += `
+</head>
+<body>
+    <!-- Your content here -->
+</body>
+</html>`;
+            
+            document.getElementById('metaOutput').value = metaTags;
+            document.getElementById('metaResult').style.display = 'block';
+            document.getElementById('generateBtn').innerHTML = '<i class="fas fa-check me-2"></i>Generated!';
+            document.getElementById('generateBtn').classList.remove('btn-primary');
+            document.getElementById('generateBtn').classList.add('btn-success');
+            
+            // Scroll to result
+            document.getElementById('metaResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyMetaTags() {
+            const metaOutput = document.getElementById('metaOutput');
+            copyToClipboard(metaOutput.value);
+        }
+
+        function downloadMetaTags() {
+            const metaOutput = document.getElementById('metaOutput');
+            const blob = new Blob([metaOutput.value], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'meta-tags.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function resetGenerator() {
+            document.getElementById('pageTitle').value = '';
+            document.getElementById('pageUrl').value = '';
+            document.getElementById('metaDescription').value = '';
+            document.getElementById('metaKeywords').value = '';
+            document.getElementById('author').value = '';
+            document.getElementById('ogTitle').value = '';
+            document.getElementById('ogImage').value = '';
+            document.getElementById('ogDescription').value = '';
+            document.getElementById('metaResult').style.display = 'none';
+            document.getElementById('generateBtn').innerHTML = '<i class="fas fa-tags me-2"></i>Generate Meta Tags';
+            document.getElementById('generateBtn').classList.remove('btn-success');
+            document.getElementById('generateBtn').classList.add('btn-primary');
+        }
+    </script>
+</body>
+</html>

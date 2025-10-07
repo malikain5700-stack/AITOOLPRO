@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Free Online Tool</title>
+    <meta name="description" content="Count words, characters, and sentences in your text. Free online word counter tool.">
+    <meta name="keywords" content="word counter, character counter, text analysis, word count">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-calculator text-primary me-3"></i>
+                        Word Counter
+                    </h1>
+                    <p class="lead text-muted">Count words, characters, and sentences in your text. Perfect for writers, students, and content creators.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-font display-1 text-primary opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Count Your Text</h4>
+                        
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">Enter your text below</label>
+                            <textarea class="form-control" id="textInput" rows="10" placeholder="Type or paste your text here to count words, characters, and sentences..."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-lg" id="countBtn" onclick="countText()">
+                                    <i class="fas fa-calculator me-2"></i>Count Text
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="clearText()">
+                                    <i class="fas fa-trash me-2"></i>Clear
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-outline-primary" onclick="copyText()">
+                                    <i class="fas fa-copy me-2"></i>Copy Text
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="countResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Text Analysis Complete!</h5>
+                                <p class="mb-0">Your text has been analyzed successfully.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Basic Counts</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Words:</strong> <span id="wordCount">0</span></p>
+                                            <p><strong>Characters:</strong> <span id="charCount">0</span></p>
+                                            <p><strong>Characters (no spaces):</strong> <span id="charCountNoSpaces">0</span></p>
+                                            <p><strong>Sentences:</strong> <span id="sentenceCount">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Reading Analysis</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Paragraphs:</strong> <span id="paragraphCount">0</span></p>
+                                            <p><strong>Reading Time:</strong> <span id="readingTime">0</span></p>
+                                            <p><strong>Speaking Time:</strong> <span id="speakingTime">0</span></p>
+                                            <p><strong>Average Words/Sentence:</strong> <span id="avgWordsPerSentence">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h6>Word Frequency</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Most Common Word:</strong> <span id="mostCommonWord">-</span></p>
+                                            <p><strong>Unique Words:</strong> <span id="uniqueWords">0</span></p>
+                                            <p><strong>Longest Word:</strong> <span id="longestWord">-</span></p>
+                                            <p><strong>Shortest Word:</strong> <span id="shortestWord">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Text Quality</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Readability Score:</strong> <span id="readabilityScore">0</span></p>
+                                            <p><strong>Grade Level:</strong> <span id="gradeLevel">-</span></p>
+                                            <p><strong>Complexity:</strong> <span id="complexity">-</span></p>
+                                            <p><strong>Density:</strong> <span id="density">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>Top 10 Most Common Words</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Word</th>
+                                                <th>Count</th>
+                                                <th>Percentage</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="wordFrequencyTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Word and character counting</li>
+                        <li>Reading time estimation</li>
+                        <li>Word frequency analysis</li>
+                        <li>Readability scoring</li>
+                        <li>Text quality metrics</li>
+                        <li>Real-time counting</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Writing Guidelines</h6>
+                    <ul class="small text-muted">
+                        <li>Blog posts: 300-2000 words</li>
+                        <li>Articles: 500-3000 words</li>
+                        <li>Social media: 50-280 characters</li>
+                        <li>Email subject: 30-50 characters</li>
+                        <li>Headlines: 6-12 words</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        // Real-time counting
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+            textInput.addEventListener('input', function() {
+                countText();
+            });
+        });
+
+        function countText() {
+            const text = document.getElementById('textInput').value;
+            
+            if (!text.trim()) {
+                document.getElementById('countResult').style.display = 'none';
+                return;
+            }
+            
+            // Basic counts
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+            const charCount = text.length;
+            const charCountNoSpaces = text.replace(/\s/g, '').length;
+            const sentences = text.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0);
+            const sentenceCount = sentences.length;
+            const paragraphs = text.split(/\n\s*\n/).filter(para => para.trim().length > 0);
+            const paragraphCount = paragraphs.length;
+            
+            // Reading time (average 200 words per minute)
+            const readingTime = Math.ceil(wordCount / 200);
+            const speakingTime = Math.ceil(wordCount / 150); // Average 150 words per minute speaking
+            
+            // Word analysis
+            const wordFreq = {};
+            words.forEach(word => {
+                const cleanWord = word.toLowerCase().replace(/[^\w]/g, '');
+                if (cleanWord.length > 0) {
+                    wordFreq[cleanWord] = (wordFreq[cleanWord] || 0) + 1;
+                }
+            });
+            
+            const uniqueWords = Object.keys(wordFreq).length;
+            const mostCommonWord = Object.keys(wordFreq).reduce((a, b) => wordFreq[a] > wordFreq[b] ? a : b, '');
+            const longestWord = words.reduce((a, b) => a.length > b.length ? a : b, '');
+            const shortestWord = words.reduce((a, b) => a.length < b.length ? a : b, '');
+            
+            // Readability score (simplified Flesch Reading Ease)
+            const avgWordsPerSentence = sentenceCount > 0 ? (wordCount / sentenceCount).toFixed(1) : 0;
+            const avgSyllablesPerWord = 1.5; // Simplified assumption
+            const readabilityScore = Math.max(0, Math.min(100, 206.835 - (1.015 * avgWordsPerSentence) - (84.6 * avgSyllablesPerWord)));
+            
+            let gradeLevel, complexity;
+            if (readabilityScore >= 90) {
+                gradeLevel = '5th grade';
+                complexity = 'Very Easy';
+            } else if (readabilityScore >= 80) {
+                gradeLevel = '6th grade';
+                complexity = 'Easy';
+            } else if (readabilityScore >= 70) {
+                gradeLevel = '7th grade';
+                complexity = 'Fairly Easy';
+            } else if (readabilityScore >= 60) {
+                gradeLevel = '8th-9th grade';
+                complexity = 'Standard';
+            } else if (readabilityScore >= 50) {
+                gradeLevel = '10th-12th grade';
+                complexity = 'Fairly Difficult';
+            } else if (readabilityScore >= 30) {
+                gradeLevel = 'College';
+                complexity = 'Difficult';
+            } else {
+                gradeLevel = 'Graduate';
+                complexity = 'Very Difficult';
+            }
+            
+            const density = wordCount > 0 ? ((Object.keys(wordFreq).length / wordCount) * 100).toFixed(1) + '%' : '0%';
+            
+            // Display results
+            document.getElementById('wordCount').textContent = wordCount.toLocaleString();
+            document.getElementById('charCount').textContent = charCount.toLocaleString();
+            document.getElementById('charCountNoSpaces').textContent = charCountNoSpaces.toLocaleString();
+            document.getElementById('sentenceCount').textContent = sentenceCount.toLocaleString();
+            document.getElementById('paragraphCount').textContent = paragraphCount.toLocaleString();
+            document.getElementById('readingTime').textContent = readingTime + ' minute' + (readingTime !== 1 ? 's' : '');
+            document.getElementById('speakingTime').textContent = speakingTime + ' minute' + (speakingTime !== 1 ? 's' : '');
+            document.getElementById('avgWordsPerSentence').textContent = avgWordsPerSentence;
+            
+            document.getElementById('mostCommonWord').textContent = mostCommonWord;
+            document.getElementById('uniqueWords').textContent = uniqueWords.toLocaleString();
+            document.getElementById('longestWord').textContent = longestWord;
+            document.getElementById('shortestWord').textContent = shortestWord;
+            
+            document.getElementById('readabilityScore').textContent = Math.round(readabilityScore);
+            document.getElementById('gradeLevel').textContent = gradeLevel;
+            document.getElementById('complexity').textContent = complexity;
+            document.getElementById('density').textContent = density;
+            
+            // Word frequency table
+            const sortedWords = Object.entries(wordFreq)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+            
+            const wordFrequencyTable = document.getElementById('wordFrequencyTable');
+            wordFrequencyTable.innerHTML = '';
+            
+            sortedWords.forEach(([word, count]) => {
+                const percentage = ((count / wordCount) * 100).toFixed(1);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${word}</td>
+                    <td>${count}</td>
+                    <td>${percentage}%</td>
+                `;
+                wordFrequencyTable.appendChild(row);
+            });
+            
+            document.getElementById('countResult').style.display = 'block';
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('countResult').style.display = 'none';
+        }
+
+        function copyText() {
+            const textInput = document.getElementById('textInput');
+            copyToClipboard(textInput.value);
+        }
+    </script>
+</body>
+</html>

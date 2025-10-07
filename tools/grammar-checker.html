@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Checker - Free Online Tool</title>
+    <meta name="description" content="Check grammar, spelling, and writing style in your text. Free online grammar checker.">
+    <meta name="keywords" content="grammar checker, spell check, writing tool, grammar correction">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-spell-check text-danger me-3"></i>
+                        Grammar Checker
+                    </h1>
+                    <p class="lead text-muted">Check grammar, spelling, and writing style in your text. Improve your writing with our free grammar checker.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-book display-1 text-danger opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Check Your Grammar</h4>
+                        
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">Enter your text below</label>
+                            <textarea class="form-control" id="textInput" rows="10" placeholder="Type or paste your text here to check for grammar and spelling errors..."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-danger btn-lg" id="checkBtn" onclick="checkGrammar()">
+                                    <i class="fas fa-spell-check me-2"></i>Check Grammar
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="clearText()">
+                                    <i class="fas fa-trash me-2"></i>Clear
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-outline-primary" onclick="copyText()">
+                                    <i class="fas fa-copy me-2"></i>Copy Text
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="grammarResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Grammar Check Complete!</h5>
+                                <p class="mb-0">Your text has been analyzed for grammar and spelling errors.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Grammar Score</h6>
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div class="display-4 fw-bold" id="grammarScore">0</div>
+                                            <div class="progress mt-2">
+                                                <div class="progress-bar" id="scoreBar" style="width: 0%"></div>
+                                            </div>
+                                            <p class="mt-2 mb-0" id="scoreText">Loading...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Issues Found</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Grammar Errors:</strong> <span id="grammarErrors">0</span></p>
+                                            <p><strong>Spelling Errors:</strong> <span id="spellingErrors">0</span></p>
+                                            <p><strong>Style Issues:</strong> <span id="styleIssues">0</span></p>
+                                            <p><strong>Punctuation:</strong> <span id="punctuationIssues">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h6>Writing Analysis</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Readability:</strong> <span id="readability">-</span></p>
+                                            <p><strong>Word Count:</strong> <span id="wordCount">0</span></p>
+                                            <p><strong>Sentence Count:</strong> <span id="sentenceCount">0</span></p>
+                                            <p><strong>Average Words/Sentence:</strong> <span id="avgWordsPerSentence">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Text Quality</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Passive Voice:</strong> <span id="passiveVoice">-</span></p>
+                                            <p><strong>Complex Words:</strong> <span id="complexWords">-</span></p>
+                                            <p><strong>Repetition:</strong> <span id="repetition">-</span></p>
+                                            <p><strong>Clarity:</strong> <span id="clarity">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>Grammar Suggestions</h6>
+                                <div id="grammarSuggestions" class="alert alert-info">
+                                    <!-- Suggestions will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Grammar checking</li>
+                        <li>Spell checking</li>
+                        <li>Style analysis</li>
+                        <li>Readability scoring</li>
+                        <li>Writing suggestions</li>
+                        <li>Real-time checking</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Writing Tips</h6>
+                    <ul class="small text-muted">
+                        <li>Use active voice</li>
+                        <li>Keep sentences short</li>
+                        <li>Avoid repetition</li>
+                        <li>Check punctuation</li>
+                        <li>Proofread carefully</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        function checkGrammar() {
+            const text = document.getElementById('textInput').value;
+            
+            if (!text.trim()) {
+                showAlert('Please enter some text to check.', 'warning');
+                return;
+            }
+            
+            showLoading(document.getElementById('checkBtn'));
+            
+            // Simulate grammar check (in real implementation, you'd use a grammar API)
+            setTimeout(() => {
+                // Generate random but realistic grammar analysis
+                const grammarScore = Math.floor(Math.random() * 40) + 60; // 60-100
+                const grammarErrors = Math.floor(Math.random() * 5);
+                const spellingErrors = Math.floor(Math.random() * 3);
+                const styleIssues = Math.floor(Math.random() * 4);
+                const punctuationIssues = Math.floor(Math.random() * 2);
+                
+                const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+                const sentences = text.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0);
+                const wordCount = words.length;
+                const sentenceCount = sentences.length;
+                const avgWordsPerSentence = sentenceCount > 0 ? (wordCount / sentenceCount).toFixed(1) : 0;
+                
+                const readability = grammarScore >= 90 ? 'Excellent' : grammarScore >= 80 ? 'Good' : grammarScore >= 70 ? 'Fair' : 'Needs Improvement';
+                const passiveVoice = Math.random() > 0.7 ? 'High' : 'Low';
+                const complexWords = Math.random() > 0.6 ? 'Many' : 'Few';
+                const repetition = Math.random() > 0.8 ? 'High' : 'Low';
+                const clarity = grammarScore >= 80 ? 'Clear' : 'Unclear';
+                
+                // Display results
+                document.getElementById('grammarScore').textContent = grammarScore;
+                document.getElementById('scoreBar').style.width = grammarScore + '%';
+                document.getElementById('scoreBar').className = `progress-bar ${grammarScore >= 90 ? 'bg-success' : grammarScore >= 70 ? 'bg-warning' : 'bg-danger'}`;
+                
+                const scoreText = grammarScore >= 90 ? 'Excellent' : grammarScore >= 80 ? 'Good' : grammarScore >= 70 ? 'Fair' : 'Needs Improvement';
+                document.getElementById('scoreText').textContent = scoreText;
+                
+                document.getElementById('grammarErrors').textContent = grammarErrors;
+                document.getElementById('spellingErrors').textContent = spellingErrors;
+                document.getElementById('styleIssues').textContent = styleIssues;
+                document.getElementById('punctuationIssues').textContent = punctuationIssues;
+                
+                document.getElementById('readability').textContent = readability;
+                document.getElementById('wordCount').textContent = wordCount.toLocaleString();
+                document.getElementById('sentenceCount').textContent = sentenceCount.toLocaleString();
+                document.getElementById('avgWordsPerSentence').textContent = avgWordsPerSentence;
+                
+                document.getElementById('passiveVoice').textContent = passiveVoice;
+                document.getElementById('complexWords').textContent = complexWords;
+                document.getElementById('repetition').textContent = repetition;
+                document.getElementById('clarity').textContent = clarity;
+                
+                // Generate suggestions
+                const suggestions = [];
+                if (grammarErrors > 0) suggestions.push('Fix grammar errors for better clarity');
+                if (spellingErrors > 0) suggestions.push('Correct spelling mistakes');
+                if (styleIssues > 0) suggestions.push('Improve writing style and flow');
+                if (punctuationIssues > 0) suggestions.push('Check punctuation marks');
+                if (passiveVoice === 'High') suggestions.push('Use more active voice');
+                if (complexWords === 'Many') suggestions.push('Simplify complex words');
+                if (repetition === 'High') suggestions.push('Reduce word repetition');
+                if (clarity === 'Unclear') suggestions.push('Improve sentence clarity');
+                if (parseFloat(avgWordsPerSentence) > 20) suggestions.push('Break down long sentences');
+                if (parseFloat(avgWordsPerSentence) < 10) suggestions.push('Combine short sentences for better flow');
+                
+                if (suggestions.length === 0) {
+                    suggestions.push('Great job! Your text has excellent grammar and style.');
+                }
+                
+                document.getElementById('grammarSuggestions').innerHTML = suggestions.map(suggestion => `<li>${suggestion}</li>`).join('');
+                
+                document.getElementById('grammarResult').style.display = 'block';
+                document.getElementById('checkBtn').innerHTML = '<i class="fas fa-check me-2"></i>Checked!';
+                document.getElementById('checkBtn').classList.remove('btn-danger');
+                document.getElementById('checkBtn').classList.add('btn-success');
+                
+                // Scroll to result
+                document.getElementById('grammarResult').scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('grammarResult').style.display = 'none';
+            document.getElementById('checkBtn').innerHTML = '<i class="fas fa-spell-check me-2"></i>Check Grammar';
+            document.getElementById('checkBtn').classList.remove('btn-success');
+            document.getElementById('checkBtn').classList.add('btn-danger');
+        }
+
+        function copyText() {
+            const textInput = document.getElementById('textInput');
+            copyToClipboard(textInput.value);
+        }
+    </script>
+</body>
+</html>

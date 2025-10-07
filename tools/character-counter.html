@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter - Free Online Tool</title>
+    <meta name="description" content="Count characters with and without spaces for social media. Free online character counter.">
+    <meta name="keywords" content="character counter, character count, social media counter, text counter">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-hashtag text-success me-3"></i>
+                        Character Counter
+                    </h1>
+                    <p class="lead text-muted">Count characters with and without spaces for social media. Perfect for Twitter, Instagram, and other platforms.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-keyboard display-1 text-success opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Count Characters</h4>
+                        
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">Enter your text below</label>
+                            <textarea class="form-control" id="textInput" rows="8" placeholder="Type or paste your text here to count characters..."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-success btn-lg" id="countBtn" onclick="countCharacters()">
+                                    <i class="fas fa-hashtag me-2"></i>Count Characters
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="clearText()">
+                                    <i class="fas fa-trash me-2"></i>Clear
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button class="btn btn-outline-primary" onclick="copyText()">
+                                    <i class="fas fa-copy me-2"></i>Copy Text
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="countResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Character Count Complete!</h5>
+                                <p class="mb-0">Your text has been analyzed successfully.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Character Counts</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Total Characters:</strong> <span id="totalChars">0</span></p>
+                                            <p><strong>Characters (no spaces):</strong> <span id="charsNoSpaces">0</span></p>
+                                            <p><strong>Spaces:</strong> <span id="spaces">0</span></p>
+                                            <p><strong>Words:</strong> <span id="words">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Social Media Limits</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Twitter:</strong> <span id="twitterStatus">-</span></p>
+                                            <p><strong>Instagram:</strong> <span id="instagramStatus">-</span></p>
+                                            <p><strong>Facebook:</strong> <span id="facebookStatus">-</span></p>
+                                            <p><strong>LinkedIn:</strong> <span id="linkedinStatus">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h6>Character Analysis</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Letters:</strong> <span id="letters">0</span></p>
+                                            <p><strong>Numbers:</strong> <span id="numbers">0</span></p>
+                                            <p><strong>Special Characters:</strong> <span id="specialChars">0</span></p>
+                                            <p><strong>Lines:</strong> <span id="lines">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Text Statistics</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Average Word Length:</strong> <span id="avgWordLength">0</span></p>
+                                            <p><strong>Longest Word:</strong> <span id="longestWord">-</span></p>
+                                            <p><strong>Shortest Word:</strong> <span id="shortestWord">-</span></p>
+                                            <p><strong>Density:</strong> <span id="density">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>Character Breakdown</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Character Type</th>
+                                                <th>Count</th>
+                                                <th>Percentage</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="characterBreakdown">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Character counting</li>
+                        <li>Social media limits</li>
+                        <li>Character analysis</li>
+                        <li>Text statistics</li>
+                        <li>Real-time counting</li>
+                        <li>Copy functionality</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Social Media Limits</h6>
+                    <ul class="small text-muted">
+                        <li><strong>Twitter:</strong> 280 characters</li>
+                        <li><strong>Instagram:</strong> 2,200 characters</li>
+                        <li><strong>Facebook:</strong> 63,206 characters</li>
+                        <li><strong>LinkedIn:</strong> 3,000 characters</li>
+                        <li><strong>TikTok:</strong> 2,200 characters</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        // Real-time counting
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+            textInput.addEventListener('input', function() {
+                countCharacters();
+            });
+        });
+
+        function countCharacters() {
+            const text = document.getElementById('textInput').value;
+            
+            if (!text.trim()) {
+                document.getElementById('countResult').style.display = 'none';
+                return;
+            }
+            
+            // Basic counts
+            const totalChars = text.length;
+            const charsNoSpaces = text.replace(/\s/g, '').length;
+            const spaces = totalChars - charsNoSpaces;
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+            
+            // Character analysis
+            const letters = text.match(/[a-zA-Z]/g) || [];
+            const numbers = text.match(/[0-9]/g) || [];
+            const specialChars = text.match(/[^a-zA-Z0-9\s]/g) || [];
+            const lines = text.split('\n').length;
+            
+            // Word analysis
+            const longestWord = words.reduce((a, b) => a.length > b.length ? a : b, '');
+            const shortestWord = words.reduce((a, b) => a.length < b.length ? a : b, '');
+            const avgWordLength = wordCount > 0 ? (charsNoSpaces / wordCount).toFixed(1) : 0;
+            const density = totalChars > 0 ? ((charsNoSpaces / totalChars) * 100).toFixed(1) + '%' : '0%';
+            
+            // Social media limits
+            const twitterLimit = 280;
+            const instagramLimit = 2200;
+            const facebookLimit = 63206;
+            const linkedinLimit = 3000;
+            
+            const twitterStatus = totalChars <= twitterLimit ? 
+                `${totalChars}/${twitterLimit} (${twitterLimit - totalChars} remaining)` : 
+                `${totalChars}/${twitterLimit} (${totalChars - twitterLimit} over limit)`;
+            
+            const instagramStatus = totalChars <= instagramLimit ? 
+                `${totalChars}/${instagramLimit} (${instagramLimit - totalChars} remaining)` : 
+                `${totalChars}/${instagramLimit} (${totalChars - instagramLimit} over limit)`;
+            
+            const facebookStatus = totalChars <= facebookLimit ? 
+                `${totalChars}/${facebookLimit} (${facebookLimit - totalChars} remaining)` : 
+                `${totalChars}/${facebookLimit} (${totalChars - facebookLimit} over limit)`;
+            
+            const linkedinStatus = totalChars <= linkedinLimit ? 
+                `${totalChars}/${linkedinLimit} (${linkedinLimit - totalChars} remaining)` : 
+                `${totalChars}/${linkedinLimit} (${totalChars - linkedinLimit} over limit)`;
+            
+            // Display results
+            document.getElementById('totalChars').textContent = totalChars.toLocaleString();
+            document.getElementById('charsNoSpaces').textContent = charsNoSpaces.toLocaleString();
+            document.getElementById('spaces').textContent = spaces.toLocaleString();
+            document.getElementById('words').textContent = wordCount.toLocaleString();
+            
+            document.getElementById('twitterStatus').textContent = twitterStatus;
+            document.getElementById('instagramStatus').textContent = instagramStatus;
+            document.getElementById('facebookStatus').textContent = facebookStatus;
+            document.getElementById('linkedinStatus').textContent = linkedinStatus;
+            
+            document.getElementById('letters').textContent = letters.length.toLocaleString();
+            document.getElementById('numbers').textContent = numbers.length.toLocaleString();
+            document.getElementById('specialChars').textContent = specialChars.length.toLocaleString();
+            document.getElementById('lines').textContent = lines.toLocaleString();
+            
+            document.getElementById('avgWordLength').textContent = avgWordLength;
+            document.getElementById('longestWord').textContent = longestWord;
+            document.getElementById('shortestWord').textContent = shortestWord;
+            document.getElementById('density').textContent = density;
+            
+            // Character breakdown
+            const characterBreakdown = document.getElementById('characterBreakdown');
+            characterBreakdown.innerHTML = '';
+            
+            const breakdown = [
+                ['Letters', letters.length, ((letters.length / totalChars) * 100).toFixed(1) + '%'],
+                ['Numbers', numbers.length, ((numbers.length / totalChars) * 100).toFixed(1) + '%'],
+                ['Spaces', spaces, ((spaces / totalChars) * 100).toFixed(1) + '%'],
+                ['Special Characters', specialChars.length, ((specialChars.length / totalChars) * 100).toFixed(1) + '%']
+            ];
+            
+            breakdown.forEach(([type, count, percentage]) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${type}</td>
+                    <td>${count.toLocaleString()}</td>
+                    <td>${percentage}</td>
+                `;
+                characterBreakdown.appendChild(row);
+            });
+            
+            document.getElementById('countResult').style.display = 'block';
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('countResult').style.display = 'none';
+        }
+
+        function copyText() {
+            const textInput = document.getElementById('textInput');
+            copyToClipboard(textInput.value);
+        }
+    </script>
+</body>
+</html>

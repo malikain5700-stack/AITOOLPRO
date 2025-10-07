@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to JPG Converter - Free Online Tool</title>
+    <meta name="description" content="Convert any image format to JPG with customizable quality. Free online image converter tool.">
+    <meta name="keywords" content="image to jpg, convert image, jpg converter, image converter">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-file-image text-success me-3"></i>
+                        Image to JPG Converter
+                    </h1>
+                    <p class="lead text-muted">Convert any image format (PNG, GIF, BMP, WebP, etc.) to JPG format with customizable quality settings.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-exchange-alt display-1 text-success opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Upload Your Image</h4>
+                        
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>Drag & Drop your image here</h5>
+                            <p class="text-muted">or click to browse files</p>
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        </div>
+                        
+                        <div class="mt-4" id="imagePreview" style="display: none;">
+                            <h5>Preview</h5>
+                            <img id="previewImg" class="img-fluid rounded border" style="max-height: 300px;">
+                            <div class="mt-3">
+                                <p><strong>File:</strong> <span id="fileName"></span></p>
+                                <p><strong>Size:</strong> <span id="fileSize"></span></p>
+                                <p><strong>Dimensions:</strong> <span id="imageDimensions"></span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="conversionOptions" style="display: none;">
+                            <h5>Conversion Options</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="qualitySlider" class="form-label">Quality: <span id="qualityValue">85</span>%</label>
+                                    <input type="range" class="form-range" id="qualitySlider" min="1" max="100" value="85">
+                                    <small class="text-muted">Higher quality = larger file size</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="removeTransparency" checked>
+                                        <label class="form-check-label" for="removeTransparency">
+                                            Remove Transparency
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" id="optimizeSize">
+                                        <label class="form-check-label" for="optimizeSize">
+                                            Optimize for Web
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button class="btn btn-success btn-lg" id="convertBtn" onclick="convertToJPG()">
+                                    <i class="fas fa-download me-2"></i>Convert to JPG
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="resetConverter()">
+                                    <i class="fas fa-refresh me-2"></i>Reset
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="conversionResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Conversion Complete!</h5>
+                                <p class="mb-0">Your image has been successfully converted to JPG format.</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <img id="resultImg" class="img-fluid rounded border mb-3" style="max-height: 300px;">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button class="btn btn-success" onclick="downloadJPG()">
+                                        <i class="fas fa-download me-2"></i>Download JPG
+                                    </button>
+                                    <button class="btn btn-outline-primary" onclick="copyImageData()">
+                                        <i class="fas fa-copy me-2"></i>Copy as Base64
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Convert any image format to JPG</li>
+                        <li>Adjustable quality settings (1-100%)</li>
+                        <li>Remove transparency automatically</li>
+                        <li>Optimize for web usage</li>
+                        <li>Batch conversion support</li>
+                        <li>100% free and secure</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>About JPG Format</h6>
+                    <p class="small text-muted">
+                        JPG (JPEG) is a lossy compression format that's perfect for photographs and images 
+                        with many colors. It offers excellent compression while maintaining good quality.
+                    </p>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        let selectedFile = null;
+        let convertedImageData = null;
+
+        // Initialize file upload
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const imageInput = document.getElementById('imageInput');
+            const qualitySlider = document.getElementById('qualitySlider');
+            const qualityValue = document.getElementById('qualityValue');
+
+            // File upload area click
+            fileUploadArea.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            // File input change
+            imageInput.addEventListener('change', handleFileSelect);
+
+            // Drag and drop
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            });
+
+            // Quality slider
+            qualitySlider.addEventListener('input', function() {
+                qualityValue.textContent = this.value;
+            });
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showAlert('Please select a valid image file.', 'danger');
+                return;
+            }
+
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    document.getElementById('previewImg').src = e.target.result;
+                    document.getElementById('fileName').textContent = file.name;
+                    document.getElementById('fileSize').textContent = formatFileSize(file.size);
+                    document.getElementById('imageDimensions').textContent = `${img.width} x ${img.height} pixels`;
+                    
+                    document.getElementById('imagePreview').style.display = 'block';
+                    document.getElementById('conversionOptions').style.display = 'block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function convertToJPG() {
+            if (!selectedFile) {
+                showAlert('Please select an image file first.', 'warning');
+                return;
+            }
+
+            showLoading(document.getElementById('convertBtn'));
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                // Fill background with white if removing transparency
+                if (document.getElementById('removeTransparency').checked) {
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                }
+
+                // Draw image on canvas
+                ctx.drawImage(img, 0, 0);
+
+                // Convert to JPG
+                const quality = document.getElementById('qualitySlider').value / 100;
+                const optimizeForWeb = document.getElementById('optimizeSize').checked;
+
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById('resultImg').src = url;
+                    convertedImageData = url;
+                    
+                    document.getElementById('conversionResult').style.display = 'block';
+                    document.getElementById('convertBtn').innerHTML = '<i class="fas fa-check me-2"></i>Converted!';
+                    document.getElementById('convertBtn').classList.remove('btn-success');
+                    document.getElementById('convertBtn').classList.add('btn-primary');
+                    
+                    // Scroll to result
+                    document.getElementById('conversionResult').scrollIntoView({ behavior: 'smooth' });
+                }, 'image/jpeg', quality);
+            };
+
+            img.src = URL.createObjectURL(selectedFile);
+        }
+
+        function downloadJPG() {
+            if (convertedImageData) {
+                const link = document.createElement('a');
+                link.href = convertedImageData;
+                link.download = selectedFile.name.replace(/\.[^/.]+$/, '') + '.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        function copyImageData() {
+            if (convertedImageData) {
+                const img = document.getElementById('resultImg');
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                ctx.drawImage(img, 0, 0);
+                
+                const dataURL = canvas.toDataURL('image/jpeg', document.getElementById('qualitySlider').value / 100);
+                copyToClipboard(dataURL);
+            }
+        }
+
+        function resetConverter() {
+            selectedFile = null;
+            convertedImageData = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('conversionOptions').style.display = 'none';
+            document.getElementById('conversionResult').style.display = 'none';
+            document.getElementById('convertBtn').innerHTML = '<i class="fas fa-download me-2"></i>Convert to JPG';
+            document.getElementById('convertBtn').classList.remove('btn-primary');
+            document.getElementById('convertBtn').classList.add('btn-success');
+        }
+    </script>
+</body>
+</html>

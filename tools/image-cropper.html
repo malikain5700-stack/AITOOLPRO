@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper - Free Online Tool</title>
+    <meta name="description" content="Crop images to remove unwanted areas or focus on specific parts. Free online image cropper tool.">
+    <meta name="keywords" content="image cropper, crop image, image editor, crop tool">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-crop text-danger me-3"></i>
+                        Image Cropper
+                    </h1>
+                    <p class="lead text-muted">Crop images to remove unwanted areas or focus on specific parts. Simple and intuitive cropping tool.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-cut display-1 text-danger opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Upload Your Image</h4>
+                        
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>Drag & Drop your image here</h5>
+                            <p class="text-muted">or click to browse files</p>
+                            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        </div>
+                        
+                        <div class="mt-4" id="cropArea" style="display: none;">
+                            <h5>Crop Your Image</h5>
+                            <div class="crop-container">
+                                <canvas id="cropCanvas" class="border rounded"></canvas>
+                            </div>
+                            <div class="mt-3">
+                                <p><strong>File:</strong> <span id="fileName"></span></p>
+                                <p><strong>Size:</strong> <span id="fileSize"></span></p>
+                                <p><strong>Dimensions:</strong> <span id="imageDimensions"></span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="cropControls" style="display: none;">
+                            <h5>Crop Controls</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="cropMode" class="form-label">Crop Mode</label>
+                                    <select class="form-select" id="cropMode" onchange="updateCropMode()">
+                                        <option value="free">Free Crop</option>
+                                        <option value="square">Square</option>
+                                        <option value="16:9">16:9 (Widescreen)</option>
+                                        <option value="4:3">4:3 (Standard)</option>
+                                        <option value="3:2">3:2 (Photo)</option>
+                                        <option value="1:1">1:1 (Square)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cropSize" class="form-label">Crop Size</label>
+                                    <select class="form-select" id="cropSize" onchange="applyPresetSize()">
+                                        <option value="custom">Custom</option>
+                                        <option value="small">Small (300x300)</option>
+                                        <option value="medium">Medium (600x600)</option>
+                                        <option value="large">Large (1200x1200)</option>
+                                        <option value="facebook">Facebook (1200x630)</option>
+                                        <option value="instagram">Instagram (1080x1080)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="cropWidth" class="form-label">Width (px)</label>
+                                    <input type="number" class="form-control" id="cropWidth" min="1" max="5000">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="cropHeight" class="form-label">Height (px)</label>
+                                    <input type="number" class="form-control" id="cropHeight" min="1" max="5000">
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button class="btn btn-danger btn-lg" id="cropBtn" onclick="cropImage()">
+                                    <i class="fas fa-crop me-2"></i>Crop Image
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="resetCropper()">
+                                    <i class="fas fa-refresh me-2"></i>Reset
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="cropResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Crop Complete!</h5>
+                                <p class="mb-0">Your image has been successfully cropped.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Original</h6>
+                                    <img id="originalImg" class="img-fluid rounded border" style="max-height: 200px;">
+                                    <p class="small text-muted mt-2" id="originalInfo"></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Cropped</h6>
+                                    <img id="resultImg" class="img-fluid rounded border" style="max-height: 200px;">
+                                    <p class="small text-muted mt-2" id="resultInfo"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <button class="btn btn-danger" onclick="downloadCropped()">
+                                    <i class="fas fa-download me-2"></i>Download Cropped Image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Free-form cropping</li>
+                        <li>Preset aspect ratios</li>
+                        <li>Custom dimensions</li>
+                        <li>High-quality output</li>
+                        <li>Real-time preview</li>
+                        <li>Easy to use interface</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Crop Tips</h6>
+                    <ul class="small text-muted">
+                        <li>Use aspect ratios for consistency</li>
+                        <li>Maintain important image elements</li>
+                        <li>Consider final use case</li>
+                        <li>Preview before finalizing</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        let selectedFile = null;
+        let originalImage = null;
+        let croppedImageData = null;
+        let originalWidth = 0;
+        let originalHeight = 0;
+
+        // Initialize file upload
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const imageInput = document.getElementById('imageInput');
+
+            // File upload area click
+            fileUploadArea.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            // File input change
+            imageInput.addEventListener('change', handleFileSelect);
+
+            // Drag and drop
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            });
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                showAlert('Please select a valid image file.', 'danger');
+                return;
+            }
+
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    originalImage = img;
+                    originalWidth = img.width;
+                    originalHeight = img.height;
+                    
+                    // Set up crop canvas
+                    const canvas = document.getElementById('cropCanvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Set canvas size (max 600px for display)
+                    const maxSize = 600;
+                    let displayWidth = img.width;
+                    let displayHeight = img.height;
+                    
+                    if (img.width > maxSize || img.height > maxSize) {
+                        const ratio = Math.min(maxSize / img.width, maxSize / img.height);
+                        displayWidth = img.width * ratio;
+                        displayHeight = img.height * ratio;
+                    }
+                    
+                    canvas.width = displayWidth;
+                    canvas.height = displayHeight;
+                    
+                    // Draw image
+                    ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+                    
+                    document.getElementById('fileName').textContent = file.name;
+                    document.getElementById('fileSize').textContent = formatFileSize(file.size);
+                    document.getElementById('imageDimensions').textContent = `${img.width} x ${img.height} pixels`;
+                    
+                    // Set initial crop dimensions
+                    document.getElementById('cropWidth').value = Math.min(300, img.width);
+                    document.getElementById('cropHeight').value = Math.min(300, img.height);
+                    
+                    document.getElementById('cropArea').style.display = 'block';
+                    document.getElementById('cropControls').style.display = 'block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateCropMode() {
+            const mode = document.getElementById('cropMode').value;
+            const widthInput = document.getElementById('cropWidth');
+            const heightInput = document.getElementById('cropHeight');
+            
+            if (mode === 'square') {
+                const size = Math.min(originalWidth, originalHeight);
+                widthInput.value = size;
+                heightInput.value = size;
+            } else if (mode === '16:9') {
+                const width = widthInput.value || originalWidth;
+                heightInput.value = Math.round(width * 9 / 16);
+            } else if (mode === '4:3') {
+                const width = widthInput.value || originalWidth;
+                heightInput.value = Math.round(width * 3 / 4);
+            } else if (mode === '3:2') {
+                const width = widthInput.value || originalWidth;
+                heightInput.value = Math.round(width * 2 / 3);
+            } else if (mode === '1:1') {
+                const size = Math.min(originalWidth, originalHeight);
+                widthInput.value = size;
+                heightInput.value = size;
+            }
+        }
+
+        function applyPresetSize() {
+            const preset = document.getElementById('cropSize').value;
+            const presets = {
+                'small': [300, 300],
+                'medium': [600, 600],
+                'large': [1200, 1200],
+                'facebook': [1200, 630],
+                'instagram': [1080, 1080]
+            };
+            
+            if (presets[preset]) {
+                document.getElementById('cropWidth').value = presets[preset][0];
+                document.getElementById('cropHeight').value = presets[preset][1];
+            }
+        }
+
+        function cropImage() {
+            if (!selectedFile || !originalImage) {
+                showAlert('Please select an image file first.', 'warning');
+                return;
+            }
+
+            const cropWidth = parseInt(document.getElementById('cropWidth').value);
+            const cropHeight = parseInt(document.getElementById('cropHeight').value);
+            
+            if (cropWidth <= 0 || cropHeight <= 0) {
+                showAlert('Please enter valid crop dimensions.', 'danger');
+                return;
+            }
+            
+            if (cropWidth > originalWidth || cropHeight > originalHeight) {
+                showAlert('Crop dimensions cannot be larger than the original image.', 'danger');
+                return;
+            }
+
+            showLoading(document.getElementById('cropBtn'));
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = cropWidth;
+            canvas.height = cropHeight;
+            
+            // Calculate crop position (center crop)
+            const x = Math.max(0, (originalWidth - cropWidth) / 2);
+            const y = Math.max(0, (originalHeight - cropHeight) / 2);
+            
+            // Use high-quality image scaling
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            
+            ctx.drawImage(originalImage, x, y, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+            
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                croppedImageData = url;
+                
+                // Show results
+                document.getElementById('originalImg').src = URL.createObjectURL(selectedFile);
+                document.getElementById('resultImg').src = url;
+                document.getElementById('originalInfo').textContent = `${originalWidth} x ${originalHeight} pixels`;
+                document.getElementById('resultInfo').textContent = `${cropWidth} x ${cropHeight} pixels`;
+                
+                document.getElementById('cropResult').style.display = 'block';
+                document.getElementById('cropBtn').innerHTML = '<i class="fas fa-check me-2"></i>Cropped!';
+                document.getElementById('cropBtn').classList.remove('btn-danger');
+                document.getElementById('cropBtn').classList.add('btn-success');
+                
+                // Scroll to result
+                document.getElementById('cropResult').scrollIntoView({ behavior: 'smooth' });
+            }, selectedFile.type, 0.95);
+        }
+
+        function downloadCropped() {
+            if (croppedImageData) {
+                const link = document.createElement('a');
+                link.href = croppedImageData;
+                link.download = selectedFile.name.replace(/\.[^/.]+$/, '') + '_cropped' + selectedFile.name.match(/\.[^/.]+$/)[0];
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        function resetCropper() {
+            selectedFile = null;
+            originalImage = null;
+            croppedImageData = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('cropArea').style.display = 'none';
+            document.getElementById('cropControls').style.display = 'none';
+            document.getElementById('cropResult').style.display = 'none';
+            document.getElementById('cropBtn').innerHTML = '<i class="fas fa-crop me-2"></i>Crop Image';
+            document.getElementById('cropBtn').classList.remove('btn-success');
+            document.getElementById('cropBtn').classList.add('btn-danger');
+        }
+    </script>
+</body>
+</html>

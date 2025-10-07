@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech - Free Online Tool</title>
+    <meta name="description" content="Convert text to speech with natural voice synthesis. Free online text-to-speech tool.">
+    <meta name="keywords" content="text to speech, tts, voice synthesis, speech converter">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-volume-up text-secondary me-3"></i>
+                        Text-to-Speech
+                    </h1>
+                    <p class="lead text-muted">Convert text to speech with natural voice synthesis. Perfect for accessibility and content creation.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-microphone display-1 text-secondary opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Convert Text to Speech</h4>
+                        
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">Enter your text below</label>
+                            <textarea class="form-control" id="textInput" rows="8" placeholder="Type or paste your text here to convert to speech..."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="voiceSelect" class="form-label">Voice</label>
+                                <select class="form-select" id="voiceSelect">
+                                    <option value="default">Default Voice</option>
+                                    <option value="male">Male Voice</option>
+                                    <option value="female">Female Voice</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="speedSelect" class="form-label">Speed</label>
+                                <select class="form-select" id="speedSelect">
+                                    <option value="0.5">Slow (0.5x)</option>
+                                    <option value="0.75">Slower (0.75x)</option>
+                                    <option value="1" selected>Normal (1x)</option>
+                                    <option value="1.25">Faster (1.25x)</option>
+                                    <option value="1.5">Fast (1.5x)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="pitchSelect" class="form-label">Pitch</label>
+                                <select class="form-select" id="pitchSelect">
+                                    <option value="0.5">Low</option>
+                                    <option value="1" selected>Normal</option>
+                                    <option value="2">High</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="volumeSelect" class="form-label">Volume</label>
+                                <select class="form-select" id="volumeSelect">
+                                    <option value="0.3">Low</option>
+                                    <option value="0.7" selected>Normal</option>
+                                    <option value="1">High</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-secondary btn-lg" id="speakBtn" onclick="speakText()">
+                                <i class="fas fa-volume-up me-2"></i>Speak Text
+                            </button>
+                            <button class="btn btn-outline-secondary ms-2" onclick="pauseSpeech()">
+                                <i class="fas fa-pause me-2"></i>Pause
+                            </button>
+                            <button class="btn btn-outline-secondary ms-2" onclick="stopSpeech()">
+                                <i class="fas fa-stop me-2"></i>Stop
+                            </button>
+                            <button class="btn btn-secondary ms-2" onclick="clearText()">
+                                <i class="fas fa-trash me-2"></i>Clear
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4" id="speechResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Speech Generated!</h5>
+                                <p class="mb-0">Your text has been converted to speech successfully.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Speech Statistics</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Text Length:</strong> <span id="textLength">0</span> characters</p>
+                                            <p><strong>Word Count:</strong> <span id="wordCount">0</span> words</p>
+                                            <p><strong>Estimated Duration:</strong> <span id="duration">0</span> seconds</p>
+                                            <p><strong>Voice Used:</strong> <span id="voiceUsed">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Audio Controls</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex gap-2">
+                                                <button class="btn btn-secondary" onclick="speakText()">
+                                                    <i class="fas fa-play me-1"></i>Play
+                                                </button>
+                                                <button class="btn btn-outline-secondary" onclick="pauseSpeech()">
+                                                    <i class="fas fa-pause me-1"></i>Pause
+                                                </button>
+                                                <button class="btn btn-outline-secondary" onclick="stopSpeech()">
+                                                    <i class="fas fa-stop me-1"></i>Stop
+                                                </button>
+                                            </div>
+                                            <div class="mt-2">
+                                                <label for="volumeSlider" class="form-label">Volume: <span id="volumeValue">70</span>%</label>
+                                                <input type="range" class="form-range" id="volumeSlider" min="0" max="100" value="70" onchange="updateVolume()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Natural voice synthesis</li>
+                        <li>Multiple voice options</li>
+                        <li>Speed and pitch control</li>
+                        <li>Volume adjustment</li>
+                        <li>Play/pause/stop controls</li>
+                        <li>Real-time conversion</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Usage Tips</h6>
+                    <ul class="small text-muted">
+                        <li>Use punctuation for better speech</li>
+                        <li>Adjust speed for comprehension</li>
+                        <li>Test different voices</li>
+                        <li>Use for accessibility</li>
+                        <li>Great for content creation</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+
+        function speakText() {
+            const text = document.getElementById('textInput').value;
+            
+            if (!text.trim()) {
+                showAlert('Please enter some text to convert to speech.', 'warning');
+                return;
+            }
+            
+            // Stop any current speech
+            speechSynthesis.cancel();
+            
+            // Create new utterance
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            
+            // Set voice properties
+            const voiceSelect = document.getElementById('voiceSelect').value;
+            const speedSelect = parseFloat(document.getElementById('speedSelect').value);
+            const pitchSelect = parseFloat(document.getElementById('pitchSelect').value);
+            const volumeSelect = parseFloat(document.getElementById('volumeSelect').value);
+            
+            currentUtterance.rate = speedSelect;
+            currentUtterance.pitch = pitchSelect;
+            currentUtterance.volume = volumeSelect;
+            
+            // Set voice
+            const voices = speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                let selectedVoice = voices[0]; // Default voice
+                
+                if (voiceSelect === 'male') {
+                    selectedVoice = voices.find(voice => voice.name.includes('Male') || voice.name.includes('male')) || voices[0];
+                } else if (voiceSelect === 'female') {
+                    selectedVoice = voices.find(voice => voice.name.includes('Female') || voice.name.includes('female')) || voices[0];
+                }
+                
+                currentUtterance.voice = selectedVoice;
+            }
+            
+            // Event handlers
+            currentUtterance.onstart = function() {
+                document.getElementById('speakBtn').innerHTML = '<i class="fas fa-volume-up me-2"></i>Speaking...';
+                document.getElementById('speakBtn').classList.remove('btn-secondary');
+                document.getElementById('speakBtn').classList.add('btn-success');
+            };
+            
+            currentUtterance.onend = function() {
+                document.getElementById('speakBtn').innerHTML = '<i class="fas fa-volume-up me-2"></i>Speak Text';
+                document.getElementById('speakBtn').classList.remove('btn-success');
+                document.getElementById('speakBtn').classList.add('btn-secondary');
+            };
+            
+            currentUtterance.onerror = function(event) {
+                showAlert('Speech synthesis error: ' + event.error, 'danger');
+                document.getElementById('speakBtn').innerHTML = '<i class="fas fa-volume-up me-2"></i>Speak Text';
+                document.getElementById('speakBtn').classList.remove('btn-success');
+                document.getElementById('speakBtn').classList.add('btn-secondary');
+            };
+            
+            // Speak the text
+            speechSynthesis.speak(currentUtterance);
+            
+            // Show results
+            const textLength = text.length;
+            const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+            const estimatedDuration = Math.ceil(wordCount / 3); // Rough estimate: 3 words per second
+            
+            document.getElementById('textLength').textContent = textLength.toLocaleString();
+            document.getElementById('wordCount').textContent = wordCount.toLocaleString();
+            document.getElementById('duration').textContent = estimatedDuration;
+            document.getElementById('voiceUsed').textContent = currentUtterance.voice ? currentUtterance.voice.name : 'Default';
+            
+            document.getElementById('speechResult').style.display = 'block';
+        }
+
+        function pauseSpeech() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+        }
+
+        function stopSpeech() {
+            speechSynthesis.cancel();
+            document.getElementById('speakBtn').innerHTML = '<i class="fas fa-volume-up me-2"></i>Speak Text';
+            document.getElementById('speakBtn').classList.remove('btn-success');
+            document.getElementById('speakBtn').classList.add('btn-secondary');
+        }
+
+        function updateVolume() {
+            const volume = document.getElementById('volumeSlider').value;
+            document.getElementById('volumeValue').textContent = volume;
+            
+            if (currentUtterance) {
+                currentUtterance.volume = volume / 100;
+            }
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            speechSynthesis.cancel();
+            document.getElementById('speechResult').style.display = 'none';
+            document.getElementById('speakBtn').innerHTML = '<i class="fas fa-volume-up me-2"></i>Speak Text';
+            document.getElementById('speakBtn').classList.remove('btn-success');
+            document.getElementById('speakBtn').classList.add('btn-secondary');
+        }
+
+        // Load voices when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = function() {
+                    // Voices are loaded
+                };
+            }
+        });
+    </script>
+</body>
+</html>

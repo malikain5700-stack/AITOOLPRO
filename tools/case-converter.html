@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Converter - Free Online Tool</title>
+    <meta name="description" content="Convert text between uppercase, lowercase, and title case. Free online case converter.">
+    <meta name="keywords" content="case converter, text case, uppercase, lowercase, title case">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-text-height text-warning me-3"></i>
+                        Case Converter
+                    </h1>
+                    <p class="lead text-muted">Convert text between uppercase, lowercase, and title case. Perfect for formatting text consistently.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-font display-1 text-warning opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Convert Text Case</h4>
+                        
+                        <div class="mb-3">
+                            <label for="textInput" class="form-label">Enter your text below</label>
+                            <textarea class="form-control" id="textInput" rows="6" placeholder="Type or paste your text here to convert between different cases..."></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="caseType" class="form-label">Convert to:</label>
+                                <select class="form-select" id="caseType" onchange="convertCase()">
+                                    <option value="uppercase">UPPERCASE</option>
+                                    <option value="lowercase">lowercase</option>
+                                    <option value="titlecase">Title Case</option>
+                                    <option value="camelcase">camelCase</option>
+                                    <option value="pascalcase">PascalCase</option>
+                                    <option value="snakecase">snake_case</option>
+                                    <option value="kebabcase">kebab-case</option>
+                                    <option value="sentencecase">Sentence case</option>
+                                    <option value="alternating">AlTeRnAtInG cAsE</option>
+                                    <option value="inverse">iNvErSe CaSe</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex gap-2 mt-4">
+                                    <button class="btn btn-warning btn-lg" id="convertBtn" onclick="convertCase()">
+                                        <i class="fas fa-text-height me-2"></i>Convert
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="clearText()">
+                                        <i class="fas fa-trash me-2"></i>Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="conversionResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Conversion Complete!</h5>
+                                <p class="mb-0">Your text has been converted successfully.</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="convertedText" class="form-label">Converted Text</label>
+                                <textarea class="form-control" id="convertedText" rows="6" readonly></textarea>
+                                <div class="mt-2">
+                                    <button class="btn btn-warning" onclick="copyConvertedText()">
+                                        <i class="fas fa-copy me-2"></i>Copy Converted Text
+                                    </button>
+                                    <button class="btn btn-outline-primary ms-2" onclick="downloadText()">
+                                        <i class="fas fa-download me-2"></i>Download as TXT
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Original Text</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Characters:</strong> <span id="originalChars">0</span></p>
+                                            <p><strong>Words:</strong> <span id="originalWords">0</span></p>
+                                            <p><strong>Lines:</strong> <span id="originalLines">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Converted Text</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Characters:</strong> <span id="convertedChars">0</span></p>
+                                            <p><strong>Words:</strong> <span id="convertedWords">0</span></p>
+                                            <p><strong>Lines:</strong> <span id="convertedLines">0</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Multiple case types</li>
+                        <li>Real-time conversion</li>
+                        <li>Copy functionality</li>
+                        <li>Download options</li>
+                        <li>Text statistics</li>
+                        <li>Batch processing</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>Case Types</h6>
+                    <ul class="small text-muted">
+                        <li><strong>UPPERCASE:</strong> ALL CAPS</li>
+                        <li><strong>lowercase:</strong> all small</li>
+                        <li><strong>Title Case:</strong> First Letter Capital</li>
+                        <li><strong>camelCase:</strong> firstWord</li>
+                        <li><strong>PascalCase:</strong> FirstWord</li>
+                        <li><strong>snake_case:</strong> snake_case</li>
+                        <li><strong>kebab-case:</strong> kebab-case</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        // Real-time conversion
+        document.addEventListener('DOMContentLoaded', function() {
+            const textInput = document.getElementById('textInput');
+            textInput.addEventListener('input', function() {
+                convertCase();
+            });
+        });
+
+        function convertCase() {
+            const text = document.getElementById('textInput').value;
+            const caseType = document.getElementById('caseType').value;
+            
+            if (!text.trim()) {
+                document.getElementById('conversionResult').style.display = 'none';
+                return;
+            }
+            
+            let convertedText = '';
+            
+            switch(caseType) {
+                case 'uppercase':
+                    convertedText = text.toUpperCase();
+                    break;
+                case 'lowercase':
+                    convertedText = text.toLowerCase();
+                    break;
+                case 'titlecase':
+                    convertedText = text.replace(/\w\S*/g, (txt) => 
+                        txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                    );
+                    break;
+                case 'camelcase':
+                    convertedText = text.replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
+                        return index === 0 ? word.toLowerCase() : word.toUpperCase();
+                    }).replace(/\s+/g, '');
+                    break;
+                case 'pascalcase':
+                    convertedText = text.replace(/(?:^\w|[A-Z]|\b\w)/g, (word) => {
+                        return word.toUpperCase();
+                    }).replace(/\s+/g, '');
+                    break;
+                case 'snakecase':
+                    convertedText = text.replace(/\W+/g, ' ')
+                        .split(/ |\B(?=[A-Z])/)
+                        .map(word => word.toLowerCase())
+                        .join('_');
+                    break;
+                case 'kebabcase':
+                    convertedText = text.replace(/\W+/g, ' ')
+                        .split(/ |\B(?=[A-Z])/)
+                        .map(word => word.toLowerCase())
+                        .join('-');
+                    break;
+                case 'sentencecase':
+                    convertedText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+                    break;
+                case 'alternating':
+                    convertedText = text.split('').map((char, index) => 
+                        index % 2 === 0 ? char.toLowerCase() : char.toUpperCase()
+                    ).join('');
+                    break;
+                case 'inverse':
+                    convertedText = text.split('').map(char => 
+                        char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+                    ).join('');
+                    break;
+                default:
+                    convertedText = text;
+            }
+            
+            // Display results
+            document.getElementById('convertedText').value = convertedText;
+            
+            // Calculate statistics
+            const originalChars = text.length;
+            const originalWords = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+            const originalLines = text.split('\n').length;
+            
+            const convertedChars = convertedText.length;
+            const convertedWords = convertedText.trim().split(/\s+/).filter(word => word.length > 0).length;
+            const convertedLines = convertedText.split('\n').length;
+            
+            document.getElementById('originalChars').textContent = originalChars.toLocaleString();
+            document.getElementById('originalWords').textContent = originalWords.toLocaleString();
+            document.getElementById('originalLines').textContent = originalLines.toLocaleString();
+            
+            document.getElementById('convertedChars').textContent = convertedChars.toLocaleString();
+            document.getElementById('convertedWords').textContent = convertedWords.toLocaleString();
+            document.getElementById('convertedLines').textContent = convertedLines.toLocaleString();
+            
+            document.getElementById('conversionResult').style.display = 'block';
+        }
+
+        function copyConvertedText() {
+            const convertedText = document.getElementById('convertedText');
+            copyToClipboard(convertedText.value);
+        }
+
+        function downloadText() {
+            const convertedText = document.getElementById('convertedText').value;
+            const blob = new Blob([convertedText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'converted-text.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('conversionResult').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

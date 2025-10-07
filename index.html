@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Tools Website - 30+ Free Online Tools</title>
+    <meta name="description" content="Free online tools for images, SEO, text processing and more. 30+ tools including converters, generators, and utilities.">
+    <meta name="keywords" content="online tools, image converter, SEO tools, text tools, free utilities">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section bg-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">30+ Free Online Tools</h1>
+                    <p class="lead mb-4">Powerful tools for images, SEO, text processing, and more. All tools are free to use and work directly in your browser.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#tools" class="btn btn-light btn-lg">Explore Tools</a>
+                        <a href="#search" class="btn btn-outline-light btn-lg">Search Tools</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-tools display-1 opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="py-4 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="search-container">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" id="toolSearch" class="form-control" placeholder="Search for tools...">
+                            <button class="btn btn-primary" type="button" onclick="searchTools()">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Section -->
+    <section class="py-3 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <div class="ad-placeholder">
+                        <p class="text-muted">Advertisement Space</p>
+                        <!-- Google AdSense or other ad code goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">All Tools</h2>
+            
+            <!-- Image Tools -->
+            <div class="tool-category mb-5">
+                <h3 class="category-title mb-4">
+                    <i class="fas fa-image text-primary me-2"></i>
+                    Image Tools
+                </h3>
+                <div class="row g-4" id="image-tools">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="convert png image">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-file-image text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Image to PNG Converter</h5>
+                                <p class="card-text">Convert any image format to PNG with high quality.</p>
+                                <a href="tools/image-to-png.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="convert jpg image">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-file-image text-success"></i>
+                                </div>
+                                <h5 class="card-title">Image to JPG Converter</h5>
+                                <p class="card-text">Convert images to JPG format with customizable quality.</p>
+                                <a href="tools/image-to-jpg.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="resize image">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-expand-arrows-alt text-warning"></i>
+                                </div>
+                                <h5 class="card-title">Image Resizer</h5>
+                                <p class="card-text">Resize images to any dimensions while maintaining quality.</p>
+                                <a href="tools/image-resizer.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="compress image">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-compress text-info"></i>
+                                </div>
+                                <h5 class="card-title">Image Compressor</h5>
+                                <p class="card-text">Reduce image file size without losing quality.</p>
+                                <a href="tools/image-compressor.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="crop image">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-crop text-danger"></i>
+                                </div>
+                                <h5 class="card-title">Image Cropper</h5>
+                                <p class="card-text">Crop images to remove unwanted areas or focus on specific parts.</p>
+                                <a href="tools/image-cropper.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="base64 convert">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-code text-secondary"></i>
+                                </div>
+                                <h5 class="card-title">Convert Image to Base64</h5>
+                                <p class="card-text">Convert images to Base64 string for web development.</p>
+                                <a href="tools/image-to-base64.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="webp png convert">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-exchange-alt text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Convert WebP to PNG</h5>
+                                <p class="card-text">Convert WebP images to PNG format for better compatibility.</p>
+                                <a href="tools/webp-to-png.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="gif maker">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-play-circle text-success"></i>
+                                </div>
+                                <h5 class="card-title">GIF Maker</h5>
+                                <p class="card-text">Create animated GIFs from images or videos.</p>
+                                <a href="tools/gif-maker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="qr code generator">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-qrcode text-warning"></i>
+                                </div>
+                                <h5 class="card-title">QR Code Generator</h5>
+                                <p class="card-text">Generate QR codes for URLs, text, or contact information.</p>
+                                <a href="tools/qr-generator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="image" data-keywords="screenshot pdf">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-file-pdf text-danger"></i>
+                                </div>
+                                <h5 class="card-title">Screenshot to PDF Converter</h5>
+                                <p class="card-text">Convert screenshots or images to PDF documents.</p>
+                                <a href="tools/screenshot-to-pdf.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Tools -->
+            <div class="tool-category mb-5">
+                <h3 class="category-title mb-4">
+                    <i class="fas fa-search text-success me-2"></i>
+                    SEO Tools
+                </h3>
+                <div class="row g-4" id="seo-tools">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="meta tags generator">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-tags text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Meta Tag Generator</h5>
+                                <p class="card-text">Generate SEO-optimized meta tags for your website.</p>
+                                <a href="tools/meta-tag-generator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="keyword density">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-chart-bar text-success"></i>
+                                </div>
+                                <h5 class="card-title">Keyword Density Checker</h5>
+                                <p class="card-text">Analyze keyword density in your content for SEO optimization.</p>
+                                <a href="tools/keyword-density-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="sitemap generator">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-sitemap text-warning"></i>
+                                </div>
+                                <h5 class="card-title">Sitemap Generator</h5>
+                                <p class="card-text">Generate XML sitemaps for better search engine indexing.</p>
+                                <a href="tools/sitemap-generator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="robots.txt">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-robot text-info"></i>
+                                </div>
+                                <h5 class="card-title">Robots.txt Generator</h5>
+                                <p class="card-text">Generate robots.txt files to control search engine crawling.</p>
+                                <a href="tools/robots-txt-generator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="google index">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-google text-danger"></i>
+                                </div>
+                                <h5 class="card-title">Google Index Checker</h5>
+                                <p class="card-text">Check if your pages are indexed by Google.</p>
+                                <a href="tools/google-index-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="domain authority">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-globe text-secondary"></i>
+                                </div>
+                                <h5 class="card-title">Domain Authority Checker</h5>
+                                <p class="card-text">Check domain authority and SEO metrics for any website.</p>
+                                <a href="tools/domain-authority-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="backlink checker">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-link text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Backlink Checker</h5>
+                                <p class="card-text">Analyze backlinks and link profile for SEO insights.</p>
+                                <a href="tools/backlink-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="page speed">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-tachometer-alt text-success"></i>
+                                </div>
+                                <h5 class="card-title">Page Speed Checker</h5>
+                                <p class="card-text">Test website loading speed and performance metrics.</p>
+                                <a href="tools/page-speed-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="xml sitemap validator">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-check-circle text-warning"></i>
+                                </div>
+                                <h5 class="card-title">XML Sitemap Validator</h5>
+                                <p class="card-text">Validate XML sitemaps for errors and SEO compliance.</p>
+                                <a href="tools/xml-sitemap-validator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="seo" data-keywords="mobile friendly">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-mobile-alt text-info"></i>
+                                </div>
+                                <h5 class="card-title">Mobile-Friendly Test</h5>
+                                <p class="card-text">Test if your website is mobile-friendly for better SEO.</p>
+                                <a href="tools/mobile-friendly-test.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Tools -->
+            <div class="tool-category mb-5">
+                <h3 class="category-title mb-4">
+                    <i class="fas fa-font text-info me-2"></i>
+                    Text Tools
+                </h3>
+                <div class="row g-4" id="text-tools">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="word counter">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-calculator text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Word Counter</h5>
+                                <p class="card-text">Count words, characters, and sentences in your text.</p>
+                                <a href="tools/word-counter.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="character counter">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-hashtag text-success"></i>
+                                </div>
+                                <h5 class="card-title">Character Counter</h5>
+                                <p class="card-text">Count characters with and without spaces for social media.</p>
+                                <a href="tools/character-counter.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="case converter">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-text-height text-warning"></i>
+                                </div>
+                                <h5 class="card-title">Case Converter</h5>
+                                <p class="card-text">Convert text between uppercase, lowercase, and title case.</p>
+                                <a href="tools/case-converter.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="plagiarism checker">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-search text-info"></i>
+                                </div>
+                                <h5 class="card-title">Plagiarism Checker</h5>
+                                <p class="card-text">Check text for plagiarism and duplicate content.</p>
+                                <a href="tools/plagiarism-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="grammar checker">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-spell-check text-danger"></i>
+                                </div>
+                                <h5 class="card-title">Grammar Checker</h5>
+                                <p class="card-text">Check grammar, spelling, and writing style in your text.</p>
+                                <a href="tools/grammar-checker.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="text to speech">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-volume-up text-secondary"></i>
+                                </div>
+                                <h5 class="card-title">Text-to-Speech</h5>
+                                <p class="card-text">Convert text to speech with natural voice synthesis.</p>
+                                <a href="tools/text-to-speech.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="speech to text">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-microphone text-primary"></i>
+                                </div>
+                                <h5 class="card-title">Speech-to-Text</h5>
+                                <p class="card-text">Convert speech to text using voice recognition technology.</p>
+                                <a href="tools/speech-to-text.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="url encoder decoder">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-link text-success"></i>
+                                </div>
+                                <h5 class="card-title">URL Encoder & Decoder</h5>
+                                <p class="card-text">Encode and decode URLs for web development and SEO.</p>
+                                <a href="tools/url-encoder-decoder.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="fancy text">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-magic text-warning"></i>
+                                </div>
+                                <h5 class="card-title">Fancy Text Generator</h5>
+                                <p class="card-text">Generate fancy and stylized text for social media.</p>
+                                <a href="tools/fancy-text-generator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="tool-card card h-100" data-category="text" data-keywords="random text">
+                            <div class="card-body">
+                                <div class="tool-icon mb-3">
+                                    <i class="fas fa-random text-info"></i>
+                                </div>
+                                <h5 class="card-title">Random Text Generator</h5>
+                                <p class="card-text">Generate random text, lorem ipsum, and placeholder content.</p>
+                                <a href="tools/random-text-generator.html" class="btn btn-primary">Use Tool</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Section -->
+    <section class="py-3 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <div class="ad-placeholder">
+                        <p class="text-muted">Advertisement Space</p>
+                        <!-- Google AdSense or other ad code goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

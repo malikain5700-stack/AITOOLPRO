@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot to PDF Converter - Free Online Tool</title>
+    <meta name="description" content="Convert screenshots or images to PDF documents. Free online screenshot to PDF converter.">
+    <meta name="keywords" content="screenshot to pdf, image to pdf, pdf converter, screenshot converter">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-file-pdf text-danger me-3"></i>
+                        Screenshot to PDF Converter
+                    </h1>
+                    <p class="lead text-muted">Convert screenshots or images to PDF documents. Perfect for documentation and archiving.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-file-alt display-1 text-danger opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Upload Your Screenshots</h4>
+                        
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>Drag & Drop your images here</h5>
+                            <p class="text-muted">or click to browse files</p>
+                            <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+                        </div>
+                        
+                        <div class="mt-4" id="imagePreview" style="display: none;">
+                            <h5>Preview</h5>
+                            <div id="previewContainer" class="border rounded p-3" style="min-height: 200px;">
+                                <!-- Preview items will be added here -->
+                            </div>
+                            <div class="mt-3">
+                                <p><strong>Files:</strong> <span id="fileCount"></span></p>
+                                <p><strong>Total Size:</strong> <span id="totalSize"></span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="pdfOptions" style="display: none;">
+                            <h5>PDF Settings</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="pdfTitle" class="form-label">PDF Title</label>
+                                    <input type="text" class="form-control" id="pdfTitle" placeholder="My Screenshots">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pdfAuthor" class="form-label">Author</label>
+                                    <input type="text" class="form-control" id="pdfAuthor" placeholder="Your Name">
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="pdfOrientation" class="form-label">Orientation</label>
+                                    <select class="form-select" id="pdfOrientation">
+                                        <option value="portrait">Portrait</option>
+                                        <option value="landscape">Landscape</option>
+                                        <option value="auto">Auto (Based on images)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pdfSize" class="form-label">Page Size</label>
+                                    <select class="form-select" id="pdfSize">
+                                        <option value="a4">A4</option>
+                                        <option value="letter">Letter</option>
+                                        <option value="legal">Legal</option>
+                                        <option value="auto">Auto (Fit to images)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="pdfQuality" class="form-label">Quality: <span id="qualityValue">90</span>%</label>
+                                    <input type="range" class="form-range" id="pdfQuality" min="10" max="100" value="90">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="pdfOptimize" checked>
+                                        <label class="form-check-label" for="pdfOptimize">
+                                            Optimize for Web
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button class="btn btn-danger btn-lg" id="convertBtn" onclick="convertToPDF()">
+                                    <i class="fas fa-file-pdf me-2"></i>Convert to PDF
+                                </button>
+                                <button class="btn btn-secondary ms-2" onclick="resetConverter()">
+                                    <i class="fas fa-refresh me-2"></i>Reset
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4" id="conversionResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>PDF Created!</h5>
+                                <p class="mb-0">Your screenshots have been converted to PDF format.</p>
+                            </div>
+                            
+                            <div class="text-center">
+                                <div class="border rounded p-4 mb-3" style="background: #f8f9fa;">
+                                    <i class="fas fa-file-pdf display-1 text-danger mb-3"></i>
+                                    <h5>PDF Document Ready</h5>
+                                    <p class="text-muted">Your PDF has been generated successfully.</p>
+                                </div>
+                                
+                                <div class="d-flex justify-content-center gap-2">
+                                    <button class="btn btn-danger" onclick="downloadPDF()">
+                                        <i class="fas fa-download me-2"></i>Download PDF
+                                    </button>
+                                    <button class="btn btn-outline-primary" onclick="previewPDF()">
+                                        <i class="fas fa-eye me-2"></i>Preview PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Convert multiple images to PDF</li>
+                        <li>Custom page sizes and orientations</li>
+                        <li>High-quality output</li>
+                        <li>Batch processing</li>
+                        <li>Web optimization</li>
+                        <li>Professional formatting</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>PDF Tips</h6>
+                    <ul class="small text-muted">
+                        <li>Use high-resolution images</li>
+                        <li>Organize images in order</li>
+                        <li>Choose appropriate page size</li>
+                        <li>Optimize for file size</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        let selectedFiles = [];
+        let pdfBlob = null;
+
+        // Initialize file upload
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const imageInput = document.getElementById('imageInput');
+            const qualitySlider = document.getElementById('pdfQuality');
+            const qualityValue = document.getElementById('qualityValue');
+
+            // File upload area click
+            fileUploadArea.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            // File input change
+            imageInput.addEventListener('change', handleFileSelect);
+
+            // Drag and drop
+            fileUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', () => {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+                const files = Array.from(e.dataTransfer.files);
+                if (files.length > 0) {
+                    handleFiles(files);
+                }
+            });
+
+            // Quality slider
+            qualitySlider.addEventListener('input', function() {
+                qualityValue.textContent = this.value;
+            });
+        });
+
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            if (files.length > 0) {
+                handleFiles(files);
+            }
+        }
+
+        function handleFiles(files) {
+            selectedFiles = files.filter(file => file.type.startsWith('image/'));
+            
+            if (selectedFiles.length === 0) {
+                showAlert('Please select valid image files.', 'danger');
+                return;
+            }
+
+            displayPreview();
+            document.getElementById('pdfOptions').style.display = 'block';
+        }
+
+        function displayPreview() {
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = '';
+            
+            let totalSize = 0;
+            
+            selectedFiles.forEach((file, index) => {
+                totalSize += file.size;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'd-inline-block me-2 mb-2';
+                    div.innerHTML = `
+                        <div class="position-relative">
+                            <img src="${e.target.result}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                            <span class="badge bg-primary position-absolute top-0 start-0">${index + 1}</span>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            document.getElementById('fileCount').textContent = selectedFiles.length;
+            document.getElementById('totalSize').textContent = formatFileSize(totalSize);
+            document.getElementById('imagePreview').style.display = 'block';
+        }
+
+        function convertToPDF() {
+            if (selectedFiles.length === 0) {
+                showAlert('Please select image files first.', 'warning');
+                return;
+            }
+
+            showLoading(document.getElementById('convertBtn'));
+
+            // Create PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            
+            const title = document.getElementById('pdfTitle').value || 'My Screenshots';
+            const author = document.getElementById('pdfAuthor').value || 'MultiTools';
+            const orientation = document.getElementById('pdfOrientation').value;
+            const pageSize = document.getElementById('pdfSize').value;
+            
+            // Set PDF metadata
+            pdf.setProperties({
+                title: title,
+                author: author,
+                creator: 'MultiTools PDF Converter'
+            });
+            
+            let processedImages = 0;
+            
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        if (index > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        // Add image to PDF
+                        const imgWidth = img.width;
+                        const imgHeight = img.height;
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+                        
+                        // Calculate dimensions to fit page
+                        let finalWidth = imgWidth;
+                        let finalHeight = imgHeight;
+                        
+                        if (imgWidth > pageWidth || imgHeight > pageHeight) {
+                            const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+                            finalWidth = imgWidth * ratio;
+                            finalHeight = imgHeight * ratio;
+                        }
+                        
+                        const x = (pageWidth - finalWidth) / 2;
+                        const y = (pageHeight - finalHeight) / 2;
+                        
+                        pdf.addImage(e.target.result, 'JPEG', x, y, finalWidth, finalHeight);
+                        
+                        processedImages++;
+                        if (processedImages === selectedFiles.length) {
+                            // All images processed, generate PDF
+                            pdfBlob = pdf.output('blob');
+                            document.getElementById('conversionResult').style.display = 'block';
+                            document.getElementById('convertBtn').innerHTML = '<i class="fas fa-check me-2"></i>Converted!';
+                            document.getElementById('convertBtn').classList.remove('btn-danger');
+                            document.getElementById('convertBtn').classList.add('btn-success');
+                            
+                            // Scroll to result
+                            document.getElementById('conversionResult').scrollIntoView({ behavior: 'smooth' });
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function downloadPDF() {
+            if (pdfBlob) {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(pdfBlob);
+                link.download = (document.getElementById('pdfTitle').value || 'screenshots') + '.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        function previewPDF() {
+            if (pdfBlob) {
+                const url = URL.createObjectURL(pdfBlob);
+                window.open(url, '_blank');
+            }
+        }
+
+        function resetConverter() {
+            selectedFiles = [];
+            pdfBlob = null;
+            document.getElementById('imageInput').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('pdfOptions').style.display = 'none';
+            document.getElementById('conversionResult').style.display = 'none';
+            document.getElementById('convertBtn').innerHTML = '<i class="fas fa-file-pdf me-2"></i>Convert to PDF';
+            document.getElementById('convertBtn').classList.remove('btn-success');
+            document.getElementById('convertBtn').classList.add('btn-danger');
+        }
+    </script>
+</body>
+</html>

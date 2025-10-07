@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Density Checker - Free SEO Tool</title>
+    <meta name="description" content="Analyze keyword density in your content for SEO optimization. Free online keyword density checker.">
+    <meta name="keywords" content="keyword density checker, seo analysis, keyword analysis, seo tool">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-chart-bar text-success me-3"></i>
+                        Keyword Density Checker
+                    </h1>
+                    <p class="lead text-muted">Analyze keyword density in your content for SEO optimization. Improve your search engine rankings.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-analytics display-1 text-success opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Analyze Your Content</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="contentText" class="form-label">Content Text *</label>
+                                <textarea class="form-control" id="contentText" rows="10" placeholder="Paste your content here for analysis..."></textarea>
+                                <div class="form-text">Minimum 100 words recommended</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="targetKeywords" class="form-label">Target Keywords</label>
+                                <textarea class="form-control" id="targetKeywords" rows="3" placeholder="Enter keywords to analyze (one per line)"></textarea>
+                                <div class="form-text">One keyword per line</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="analysisType" class="form-label">Analysis Type</label>
+                                <select class="form-select" id="analysisType">
+                                    <option value="basic">Basic Analysis</option>
+                                    <option value="detailed">Detailed Analysis</option>
+                                    <option value="seo">SEO Focused</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="minWordLength" class="form-label">Minimum Word Length</label>
+                                <select class="form-select" id="minWordLength">
+                                    <option value="3">3+ characters</option>
+                                    <option value="4">4+ characters</option>
+                                    <option value="5">5+ characters</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button class="btn btn-success btn-lg" id="analyzeBtn" onclick="analyzeKeywords()">
+                                <i class="fas fa-chart-bar me-2"></i>Analyze Keywords
+                            </button>
+                            <button class="btn btn-secondary ms-2" onclick="resetAnalyzer()">
+                                <i class="fas fa-refresh me-2"></i>Reset
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4" id="analysisResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Analysis Complete!</h5>
+                                <p class="mb-0">Your keyword density analysis is ready.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Content Statistics</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Total Words:</strong> <span id="totalWords"></span></p>
+                                            <p><strong>Unique Words:</strong> <span id="uniqueWords"></span></p>
+                                            <p><strong>Characters:</strong> <span id="totalChars"></span></p>
+                                            <p><strong>Sentences:</strong> <span id="totalSentences"></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>SEO Score</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="progress mb-2">
+                                                <div class="progress-bar" id="seoScoreBar" style="width: 0%"></div>
+                                            </div>
+                                            <p class="mb-0"><strong>SEO Score:</strong> <span id="seoScore"></span>/100</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>Top Keywords</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Keyword</th>
+                                                <th>Count</th>
+                                                <th>Density</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="keywordTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>SEO Recommendations</h6>
+                                <div id="seoRecommendations" class="alert alert-info">
+                                    <!-- Recommendations will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Keyword density analysis</li>
+                        <li>SEO score calculation</li>
+                        <li>Content statistics</li>
+                        <li>SEO recommendations</li>
+                        <li>Multiple analysis types</li>
+                        <li>Target keyword tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>SEO Guidelines</h6>
+                    <ul class="small text-muted">
+                        <li>Keyword density: 1-3%</li>
+                        <li>Avoid keyword stuffing</li>
+                        <li>Use natural language</li>
+                        <li>Include LSI keywords</li>
+                        <li>Focus on user intent</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        function analyzeKeywords() {
+            const content = document.getElementById('contentText').value;
+            const targetKeywords = document.getElementById('targetKeywords').value;
+            const analysisType = document.getElementById('analysisType').value;
+            const minWordLength = parseInt(document.getElementById('minWordLength').value);
+            
+            if (!content.trim()) {
+                showAlert('Please enter content to analyze.', 'warning');
+                return;
+            }
+            
+            showLoading(document.getElementById('analyzeBtn'));
+            
+            // Analyze content
+            const words = content.toLowerCase().match(/\b\w+\b/g) || [];
+            const filteredWords = words.filter(word => word.length >= minWordLength);
+            const uniqueWords = [...new Set(filteredWords)];
+            
+            // Calculate statistics
+            const totalWords = filteredWords.length;
+            const totalChars = content.length;
+            const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            
+            // Calculate keyword density
+            const wordCount = {};
+            filteredWords.forEach(word => {
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            });
+            
+            // Sort by frequency
+            const sortedWords = Object.entries(wordCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 20);
+            
+            // Calculate SEO score
+            let seoScore = 0;
+            if (totalWords >= 300) seoScore += 20;
+            if (totalWords >= 500) seoScore += 10;
+            if (sentences >= 5) seoScore += 10;
+            if (content.includes('h1') || content.includes('h2')) seoScore += 10;
+            if (targetKeywords) seoScore += 20;
+            
+            // Check keyword density
+            const targetKeywordList = targetKeywords.split('\n').filter(k => k.trim());
+            let keywordScore = 0;
+            targetKeywordList.forEach(keyword => {
+                const keywordLower = keyword.toLowerCase().trim();
+                const count = wordCount[keywordLower] || 0;
+                const density = (count / totalWords * 100).toFixed(2);
+                if (density >= 1 && density <= 3) keywordScore += 10;
+            });
+            
+            seoScore += keywordScore;
+            seoScore = Math.min(seoScore, 100);
+            
+            // Display results
+            document.getElementById('totalWords').textContent = totalWords;
+            document.getElementById('uniqueWords').textContent = uniqueWords.length;
+            document.getElementById('totalChars').textContent = totalChars;
+            document.getElementById('totalSentences').textContent = sentences;
+            document.getElementById('seoScore').textContent = seoScore;
+            document.getElementById('seoScoreBar').style.width = seoScore + '%';
+            document.getElementById('seoScoreBar').className = `progress-bar ${seoScore >= 70 ? 'bg-success' : seoScore >= 50 ? 'bg-warning' : 'bg-danger'}`;
+            
+            // Populate keyword table
+            const keywordTable = document.getElementById('keywordTable');
+            keywordTable.innerHTML = '';
+            
+            sortedWords.forEach(([word, count]) => {
+                const density = (count / totalWords * 100).toFixed(2);
+                const status = density > 3 ? 'Over-optimized' : density >= 1 ? 'Good' : 'Low';
+                const statusClass = density > 3 ? 'text-danger' : density >= 1 ? 'text-success' : 'text-warning';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${word}</td>
+                    <td>${count}</td>
+                    <td>${density}%</td>
+                    <td class="${statusClass}">${status}</td>
+                `;
+                keywordTable.appendChild(row);
+            });
+            
+            // Generate recommendations
+            const recommendations = [];
+            if (totalWords < 300) recommendations.push('Content is too short. Aim for at least 300 words.');
+            if (seoScore < 50) recommendations.push('Improve SEO by adding more relevant keywords.');
+            if (sentences < 5) recommendations.push('Add more sentences to improve readability.');
+            if (targetKeywordList.length > 0) {
+                targetKeywordList.forEach(keyword => {
+                    const keywordLower = keyword.toLowerCase().trim();
+                    const count = wordCount[keywordLower] || 0;
+                    const density = (count / totalWords * 100).toFixed(2);
+                    if (density < 1) recommendations.push(`Increase usage of "${keyword}" (current: ${density}%)`);
+                    if (density > 3) recommendations.push(`Reduce usage of "${keyword}" (current: ${density}%)`);
+                });
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push('Great job! Your content has good SEO optimization.');
+            }
+            
+            document.getElementById('seoRecommendations').innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+            
+            document.getElementById('analysisResult').style.display = 'block';
+            document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-check me-2"></i>Analyzed!';
+            document.getElementById('analyzeBtn').classList.remove('btn-success');
+            document.getElementById('analyzeBtn').classList.add('btn-primary');
+            
+            // Scroll to result
+            document.getElementById('analysisResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetAnalyzer() {
+            document.getElementById('contentText').value = '';
+            document.getElementById('targetKeywords').value = '';
+            document.getElementById('analysisResult').style.display = 'none';
+            document.getElementById('analyzeBtn').innerHTML = '<i class="fas fa-chart-bar me-2"></i>Analyze Keywords';
+            document.getElementById('analyzeBtn').classList.remove('btn-primary');
+            document.getElementById('analyzeBtn').classList.add('btn-success');
+        }
+    </script>
+</body>
+</html>

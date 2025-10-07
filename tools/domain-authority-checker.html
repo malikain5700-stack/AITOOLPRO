@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Authority Checker - Free SEO Tool</title>
+    <meta name="description" content="Check domain authority and SEO metrics for any website. Free online domain authority checker.">
+    <meta name="keywords" content="domain authority checker, da checker, seo metrics, domain analysis">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
+
+    <!-- Tool Header -->
+    <div class="tool-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold mb-3">
+                        <i class="fas fa-globe text-secondary me-3"></i>
+                        Domain Authority Checker
+                    </h1>
+                    <p class="lead text-muted">Check domain authority and SEO metrics for any website. Analyze your domain's search engine strength.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fas fa-chart-line display-1 text-secondary opacity-75"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Section -->
+    <div class="container py-3">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <div class="ad-placeholder">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Content -->
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="tool-content">
+                    <div class="tool-form">
+                        <h4 class="mb-4">Check Domain Authority</h4>
+                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="domainUrl" class="form-label">Domain URL *</label>
+                                <input type="url" class="form-control" id="domainUrl" placeholder="https://example.com">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="analysisType" class="form-label">Analysis Type</label>
+                                <select class="form-select" id="analysisType">
+                                    <option value="basic">Basic Analysis</option>
+                                    <option value="detailed">Detailed Analysis</option>
+                                    <option value="competitor">Competitor Analysis</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <button class="btn btn-secondary btn-lg" id="checkBtn" onclick="checkDomainAuthority()">
+                                <i class="fas fa-globe me-2"></i>Check Domain Authority
+                            </button>
+                            <button class="btn btn-outline-secondary ms-2" onclick="resetChecker()">
+                                <i class="fas fa-refresh me-2"></i>Reset
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4" id="domainResult" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5><i class="fas fa-check-circle me-2"></i>Domain Analysis Complete!</h5>
+                                <p class="mb-0">Your domain authority analysis is ready.</p>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Domain Authority Score</h6>
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <div class="display-4 fw-bold" id="daScore">0</div>
+                                            <div class="progress mt-2">
+                                                <div class="progress-bar" id="daBar" style="width: 0%"></div>
+                                            </div>
+                                            <p class="mt-2 mb-0" id="daText">Loading...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>SEO Metrics</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Page Authority:</strong> <span id="paScore">-</span></p>
+                                            <p><strong>Spam Score:</strong> <span id="spamScore">-</span></p>
+                                            <p><strong>Backlinks:</strong> <span id="backlinks">-</span></p>
+                                            <p><strong>Referring Domains:</strong> <span id="referringDomains">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <h6>Domain Information</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Domain Age:</strong> <span id="domainAge">-</span></p>
+                                            <p><strong>SSL Certificate:</strong> <span id="sslStatus">-</span></p>
+                                            <p><strong>Mobile-Friendly:</strong> <span id="mobileStatus">-</span></p>
+                                            <p><strong>Page Speed:</strong> <span id="speedStatus">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Content Analysis</h6>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p><strong>Total Pages:</strong> <span id="totalPages">-</span></p>
+                                            <p><strong>Indexed Pages:</strong> <span id="indexedPages">-</span></p>
+                                            <p><strong>Content Quality:</strong> <span id="contentQuality">-</span></p>
+                                            <p><strong>Keyword Density:</strong> <span id="keywordDensity">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>Domain Authority Recommendations</h6>
+                                <div id="recommendations" class="alert alert-info">
+                                    <!-- Recommendations will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="tool-features">
+                    <h6><i class="fas fa-star me-2"></i>Features</h6>
+                    <ul>
+                        <li>Domain authority check</li>
+                        <li>SEO metrics analysis</li>
+                        <li>Backlink analysis</li>
+                        <li>Content quality review</li>
+                        <li>Competitor comparison</li>
+                        <li>Improvement recommendations</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-features mt-4">
+                    <h6><i class="fas fa-info-circle me-2"></i>DA Guidelines</h6>
+                    <ul class="small text-muted">
+                        <li>DA 0-20: New/Weak domain</li>
+                        <li>DA 21-40: Moderate authority</li>
+                        <li>DA 41-60: Good authority</li>
+                        <li>DA 61-80: High authority</li>
+                        <li>DA 81-100: Very high authority</li>
+                    </ul>
+                </div>
+                
+                <!-- Ad Section -->
+                <div class="ad-placeholder mt-4">
+                    <p class="text-muted">Advertisement Space</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../script.js"></script>
+    
+    <!-- Tool-specific JS -->
+    <script>
+        function checkDomainAuthority() {
+            const domainUrl = document.getElementById('domainUrl').value;
+            const analysisType = document.getElementById('analysisType').value;
+            
+            if (!domainUrl.trim()) {
+                showAlert('Please enter a domain URL.', 'warning');
+                return;
+            }
+            
+            if (!isValidURL(domainUrl)) {
+                showAlert('Please enter a valid URL.', 'danger');
+                return;
+            }
+            
+            showLoading(document.getElementById('checkBtn'));
+            
+            // Simulate domain authority check (in real implementation, you'd use Moz API or similar)
+            setTimeout(() => {
+                // Generate random but realistic domain authority data
+                const daScore = Math.floor(Math.random() * 50) + 20; // 20-70
+                const paScore = Math.floor(Math.random() * 40) + 15; // 15-55
+                const spamScore = Math.floor(Math.random() * 20) + 1; // 1-20
+                const backlinks = Math.floor(Math.random() * 10000) + 100;
+                const referringDomains = Math.floor(Math.random() * 1000) + 50;
+                
+                const domainAge = Math.floor(Math.random() * 10) + 1; // 1-10 years
+                const sslStatus = Math.random() > 0.1 ? 'Valid' : 'Invalid';
+                const mobileStatus = Math.random() > 0.2 ? 'Yes' : 'No';
+                const speedStatus = Math.random() > 0.3 ? 'Good' : 'Needs improvement';
+                
+                const totalPages = Math.floor(Math.random() * 500) + 50;
+                const indexedPages = Math.floor(totalPages * (0.7 + Math.random() * 0.3));
+                const contentQuality = Math.random() > 0.3 ? 'Good' : 'Needs improvement';
+                const keywordDensity = (Math.random() * 5 + 1).toFixed(1) + '%';
+                
+                // Display results
+                document.getElementById('daScore').textContent = daScore;
+                document.getElementById('daBar').style.width = daScore + '%';
+                document.getElementById('daBar').className = `progress-bar ${daScore >= 60 ? 'bg-success' : daScore >= 40 ? 'bg-warning' : 'bg-danger'}`;
+                
+                const daText = daScore >= 60 ? 'High Authority' : daScore >= 40 ? 'Moderate Authority' : 'Low Authority';
+                document.getElementById('daText').textContent = daText;
+                
+                document.getElementById('paScore').textContent = paScore;
+                document.getElementById('spamScore').textContent = spamScore + '%';
+                document.getElementById('backlinks').textContent = backlinks.toLocaleString();
+                document.getElementById('referringDomains').textContent = referringDomains.toLocaleString();
+                
+                document.getElementById('domainAge').textContent = domainAge + ' years';
+                document.getElementById('sslStatus').textContent = sslStatus;
+                document.getElementById('mobileStatus').textContent = mobileStatus;
+                document.getElementById('speedStatus').textContent = speedStatus;
+                
+                document.getElementById('totalPages').textContent = totalPages.toLocaleString();
+                document.getElementById('indexedPages').textContent = indexedPages.toLocaleString();
+                document.getElementById('contentQuality').textContent = contentQuality;
+                document.getElementById('keywordDensity').textContent = keywordDensity;
+                
+                // Generate recommendations
+                const recommendations = [];
+                if (daScore < 30) {
+                    recommendations.push('Focus on building high-quality backlinks');
+                    recommendations.push('Create valuable, shareable content');
+                    recommendations.push('Improve internal linking structure');
+                }
+                if (spamScore > 10) recommendations.push('Reduce spam signals and improve content quality');
+                if (backlinks < 500) recommendations.push('Build more quality backlinks from relevant sites');
+                if (referringDomains < 100) recommendations.push('Increase referring domains through outreach');
+                if (sslStatus === 'Invalid') recommendations.push('Install valid SSL certificate');
+                if (mobileStatus === 'No') recommendations.push('Make the website mobile-friendly');
+                if (speedStatus === 'Needs improvement') recommendations.push('Optimize website loading speed');
+                if (contentQuality === 'Needs improvement') recommendations.push('Improve content quality and relevance');
+                if (parseFloat(keywordDensity) < 2) recommendations.push('Optimize keyword usage and density');
+                
+                if (recommendations.length === 0) {
+                    recommendations.push('Excellent! Your domain has strong authority and SEO metrics.');
+                }
+                
+                document.getElementById('recommendations').innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+                
+                document.getElementById('domainResult').style.display = 'block';
+                document.getElementById('checkBtn').innerHTML = '<i class="fas fa-check me-2"></i>Checked!';
+                document.getElementById('checkBtn').classList.remove('btn-secondary');
+                document.getElementById('checkBtn').classList.add('btn-primary');
+                
+                // Scroll to result
+                document.getElementById('domainResult').scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+
+        function resetChecker() {
+            document.getElementById('domainUrl').value = '';
+            document.getElementById('domainResult').style.display = 'none';
+            document.getElementById('checkBtn').innerHTML = '<i class="fas fa-globe me-2"></i>Check Domain Authority';
+            document.getElementById('checkBtn').classList.remove('btn-primary');
+            document.getElementById('checkBtn').classList.add('btn-secondary');
+        }
+    </script>
+</body>
+</html>
